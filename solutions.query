@@ -1,0 +1,359 @@
+#Solution:
+
+# 1. List all the nodes and their relations in the graph
+PREFIX : <http://persondata-graph.com/>
+SELECT *
+WHERE {
+    ?s ?p ?o 
+}
+
+# 2. Who is Tim? Get all the details.
+PREFIX : <http://persondata-graph.com/>
+SELECT ?p ?o
+WHERE {
+   :Tim ?p ?o
+}
+
+# 3. Who is Tim's manager?
+PREFIX : <http://persondata-graph.com/>
+SELECT ?manager
+WHERE {
+    :Tim :reports_to ?manager
+}
+
+# 4. What is Sam's DOB, gender and whom does she report to?
+PREFIX : <http://persondata-graph.com/>
+SELECT ?date ?gender ?manager
+WHERE {
+    :Sam :born_on ?date ;
+          :gender ?gender ;
+          :reports_to ?manager 
+}
+
+# 5. How many types of people are there in the graph
+PREFIX : <http://persondata-graph.com/>
+SELECT (COUNT(?person) AS ?personCount)
+WHERE {
+    ?person a :Person
+}
+
+# 6. How many managers and associates are there in the graph
+PREFIX : <http://persondata-graph.com/>
+SELECT ?type (COUNT(?person) AS ?personCount)
+WHERE {
+  ?person a ?type .
+  FILTER ( ?type IN (:Manager, :Associate))  
+  }
+GROUP BY ?type
+
+# 7. What the Birth year of all the persons and fetch name and corresponding birth year?
+
+PREFIX : <http://persondata-graph.com/>
+SELECT ?name ?byear
+WHERE {
+    ?person a :Person ;
+         :name ?name ;
+         :born_on ?bdate .
+    BIND (year(?bdate) AS ?byear)
+}
+
+# 8. What is the age of each person
+PREFIX : <http://persondata-graph.com/>
+SELECT ?name ?age
+WHERE {
+    ?person a :Person ;
+         :name ?name ;
+         :born_on ?bdate .
+    BIND (year(?bdate) AS ?byear)
+    BIND (year(xsd:dateTime(NOW())) as ?currentyear)
+    BIND(?currentyear - ?byear as ?age)
+}
+
+# 9. What is the average age of people in the graph
+PREFIX : <http://persondata-graph.com/>
+SELECT (AVG(?age) AS ?avgage)
+WHERE {
+    ?person a :Person ;
+         :name ?name ;
+         :born_on ?bdate .
+    BIND (year(?bdate) AS ?byear)
+    BIND (year(xsd:dateTime(NOW())) as ?currentyear)
+    BIND(?currentyear - ?byear as ?age)
+}
+
+# 10. Who is Micheal's manager's manager?
+PREFIX : <http://persondata-graph.com/>
+
+SELECT ?reporteename ?managername
+WHERE {
+ ?p :reports_to/:reports_to ?c ;
+      :name ?reporteename .
+  ?c :name ?managername .
+  FILTER ( ?p IN (:Mike))
+  }
+
+# 11. What are the details of the pet that Micheal has?
+PREFIX : <http://persondata-graph.com/>
+
+SELECT ?petname ?type ?petdob
+WHERE {
+    :Mike :has_pet ?pet .
+    ?pet a ?type ;
+         :name ?petname ;
+         :born_on ?petdob 
+}
+
+# 12. Find all possible paths between Mike and Alex
+
+PREFIX : <http://persondata-graph.com/>
+
+SELECT ?subject ?predicate ?object
+WHERE {
+  
+  :Mike (:|!:)* ?subject .
+  ?subject ?predicate ?object .
+  ?object (:|!:)* :Alex  
+  }
+  
+# 13. Find all occurances of people reporting to Alex, either directly or indirectly.
+
+PREFIX : <http://persondata-graph.com/>
+
+SELECT ?c
+WHERE {
+  ?c :reports_to+ :Alex
+  }
+
+# 14. Inserting new statements based on certain patterns eg the predicate friend_of
+PREFIX : <http://persondata-graph.com/>
+DELETE {
+    ?c2 :friend_of ?c1
+}
+WHERE {
+    ?c1 :friend_of ?c2
+}
+
+PREFIX : <http://persondata-graph.com/>
+DELETE WHERE {
+    ?c1 :friend_of ?c2
+}
+
+
+# 15. Inserting new statements based on certain patterns eg the predicate friend_of
+PREFIX : <http://persondata-graph.com/>
+INSERT {
+    ?c2 :friend_of ?c1
+}
+WHERE {
+    ?c1 :friend_of ?c2
+}
+
+# 16. # Inserting data using SPARQL update script
+
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://persondata-graph.com/>
+
+INSERT DATA {
+
+    :Tim a :Manager ;
+        a :Person ;
+        :name "Timothy Dalton" ;
+        :gender "Male" ;
+        :born_on "1963-06-23"^^xsd:date ;
+        :personality_trait "Techie" ;
+        :personality_trait "Movie-Buff" ;
+        :personality_trait "Smart" ;
+        :reports_to :Alex .
+
+    :Alex a :Manager ;
+          a :Person  ;
+            :name "Alexender Philip"  ;
+            :gender "Male" ;
+            :born_on "1970-12-01"^^xsd:date ;
+            :personality_trait "Foodie", "Techie", "Hard-working" .
+
+    :Mike a :Associate ;
+          a :Person  ;
+            :name "Micheal"  ;
+            :gender "Male" ;
+            :born_on "2000-01-01"^^xsd:date ;
+            :personality_trait "Smart", "Techie" ;
+            :reports_to :Tim ;
+            :has_pet :Goofy_The_Dog .
+
+    :Goofy_The_Dog a :Animal ;
+                     :name "Goofy" ;
+                     :born_on "2019-07-04"^^xsd:date .
+
+    :Alex :likes :Goofy_The_Dog .
+
+    :Sam a :Associate ;
+          a :Person  ;
+            :name "Samantha"  ;
+            :gender "Female" ;
+            :born_on "2002-07-31"^^xsd:date ;
+            :personality_trait "Hard-working", "Cat Lover" ;
+            :reports_to :Tim .
+
+    :Mike :friend_of :Sam .
+  } 
+
+# 17. DELETING data using SPARQL update script
+
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://persondata-graph.com/>
+
+DELETE DATA {
+
+    :Tim a :Manager ;
+        a :Person ;
+        :name "Timothy Dalton" ;
+        :gender "Male" ;
+        :born_on "1963-06-23"^^xsd:date ;
+        :personality_trait "Techie" ;
+        :personality_trait "Movie-Buff" ;
+        :personality_trait "Smart" ;
+        :reports_to :Alex .
+
+    :Alex a :Manager ;
+          a :Person  ;
+            :name "Alexender Philip"  ;
+            :gender "Male" ;
+            :born_on "1970-12-01"^^xsd:date ;
+            :personality_trait "Foodie", "Techie", "Hard-working" .
+
+    :Mike a :Associate ;
+          a :Person  ;
+            :name "Micheal"  ;
+            :gender "Male" ;
+            :born_on "2000-01-01"^^xsd:date ;
+            :personality_trait "Smart", "Techie" ;
+            :reports_to :Tim ;
+            :has_pet :Goofy_The_Dog .
+
+    :Goofy_The_Dog a :Animal ;
+                     :name "Goofy" ;
+                     :born_on "2019-07-04"^^xsd:date .
+
+    :Alex :likes :Goofy_The_Dog .
+
+    :Sam a :Associate ;
+          a :Person  ;
+            :name "Samantha"  ;
+            :gender "Female" ;
+            :born_on "2002-07-31"^^xsd:date ;
+            :personality_trait "Hard-working", "Cat Lover" ;
+            :reports_to :Tim .
+
+    :Mike :friend_of :Sam .
+  }
+
+# 18. Named graph
+## xsd:
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+## rdf:type
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+## IRI
+PREFIX : <http://persondata-graph.com/>
+
+:Person_Data_Graph {
+    :Tim a :Manager ;
+        a :Person ;
+        :name "Timothy Dalton" ;
+        :gender "Male" ;
+        :born_on "1963-06-23"^^xsd:date ;
+        :personality_trait "Techie" ;
+        :personality_trait "Movie-Buff" ;
+        :personality_trait "Smart" ;
+        :reports_to :Alex .
+
+    :Alex a :Manager ;
+          a :Person  ;
+            :name "Alexender Philip"  ;
+            :gender "Male" ;
+            :born_on "1970-12-01"^^xsd:date ;
+            :personality_trait "Foodie", "Techie", "Hard-working" .
+            
+    :Mike a :Associate ;
+          a :Person  ;
+            :name "Micheal"  ;
+            :gender "Male" ;
+            :born_on "2000-01-01"^^xsd:date ;
+            :personality_trait "Smart", "Techie" ;
+            :reports_to :Tim ;
+            :has_pet :Goofy_The_Dog .
+
+    :Goofy_The_Dog a :Animal ;
+                     :name "Goofy" ;
+                     :born_on "2019-07-04"^^xsd:date .
+
+    :Alex :likes :Goofy_The_Dog .
+                     
+    :Sam a :Associate ;
+          a :Person  ;
+            :name "Samantha"  ;
+            :gender "Female" ;
+            :born_on "2002-07-31"^^xsd:date ;
+            :personality_trait "Hard-working", "Cat Lover" ;
+            :reports_to :Tim .
+            
+    :Mike :friend_of :Sam .
+}
+
+# 19.  Selecting from a named graph
+PREFIX : <http://persondata-graph.com/>
+
+SELECT *
+FROM :Person_Data_Graph
+WHERE {
+  ?s ?p ?o
+  }
+
+#  20. Dropping a named graph
+PREFIX : <http://persondata-graph.com/>
+
+DROP GRAPH :Person_Data_Graph
+
+
+# 21. Querying the predicates of things in the graph.
+
+PREFIX : <http://persondata-graph.com/>
+
+SELECT DISTINCT ?predicate
+WHERE {
+  ?s ?predicate ?o
+  }
+ORDER BY DESC(?predicate) 
+
+# 22. Querying the types of things in the graph.
+
+PREFIX : <http://persondata-graph.com/>
+
+SELECT DISTINCT ?type
+WHERE {
+  ?s a ?type
+  }
+GROUP BY ?type
+ORDER BY DESC(?type) 
+
+# 23. Querying the entire vocabulary of things in the graph.
+
+PREFIX : <http://persondata-graph.com/>
+
+SELECT ?t ?p ?ptype
+WHERE {
+  ?s ?p ?o ;
+   a ?t 
+  BIND (
+    COALESCE(
+      IF (isIRI(?o),"Resource is IRI based",1/0),
+      "Resource is literal"
+      ) AS ?ptype
+    )
+  }
+GROUP BY ?t ?p ?ptype
+ORDER BY ASC(?t) ASC(?p)  

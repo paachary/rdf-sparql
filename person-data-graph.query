@@ -1,0 +1,26 @@
+Questions:
+#Solution:
+# 1. List all the nodes and their relations in the graph
+# 2. Who is Tim? Get all the details.
+# 3. Who is Tim's manager?
+# 4. What is Sam's DOB, gender and whom does she report to?
+# 5. How many types of people are there in the graph
+# 6. How many managers and associates are there in the graph
+# 7. What the Birth year of all the persons and fetch name and corresponding birth year?
+# 8. What is the age of each person
+# 9. What is the average age of people in the graph
+# 10. Who is Micheal's manager's manager?
+# 11. What are the details of the pet that Micheal has?
+# 12. Find all possible paths between Mike and Alex
+# 13. Find all occurances of people reporting to Alex, either directly or indirectly.
+# 14. Inserting new statements based on certain patterns eg the predicate friend_of
+# 15. Inserting new statements based on certain patterns eg the predicate friend_of
+# 16. # Inserting data using SPARQL update script
+# 17. DELETING data using SPARQL update script
+# 18. Named graph
+# 19.  Selecting from a named graph
+# 20. Dropping a named graph
+# 21. Querying the predicates of things in the graph.
+# 22. Querying the types of things in the graph.
+# 23. Querying the entire vocabulary of things in the graph.
+
