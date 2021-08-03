@@ -1,0 +1,52 @@
+## xsd:
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+## rdf:type
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+## IRI
+PREFIX : <http://persondata-graph.com/>
+
+:Tim rdf:type :Manager .
+
+:Tim a :Manager ;
+    a :Person ;
+    :name "Timothy Dalton" ;
+    :gender "Male" ;
+    :born_on "1963-06-23"^^xsd:date ;
+    :personality_trait "Techie" ;
+    :personality_trait "Movie-Buff" ;
+    :personality_trait "Smart" ;
+    :reports_to :Alex .
+
+:Alex a :Manager ;
+      a :Person  ;
+        :name "Alexender Philip"  ;
+        :gender "Male" ;
+        :born_on "1970-12-01"^^xsd:date ;
+        :personality_trait "Foodie", "Techie", "Hard-working" .
+        
+:Mike a :Associate ;
+      a :Person  ;
+        :name "Micheal"  ;
+        :gender "Male" ;
+        :born_on "2000-01-01"^^xsd:date ;
+        :personality_trait "Smart", "Techie" ;
+		:reports_to :Tim ;
+		:has_pet :Goofy_The_Dog .
+
+:Goofy_The_Dog a :Animal ;
+                 :name "Goofy" ;
+				 :born_on "2019-07-04"^^xsd:date .
+
+:Alex :likes :Goofy_The_Dog .
+				 
+:Sam a :Associate ;
+      a :Person  ;
+        :name "Samantha"  ;
+        :gender "Female" ;
+        :born_on "2002-07-31"^^xsd:date ;
+        :personality_trait "Hard-working", "Cat Lover" ;
+		:reports_to :Tim .
+        
+:Mike :friend_of :Sam .        
