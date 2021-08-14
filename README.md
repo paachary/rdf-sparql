@@ -19,3 +19,18 @@ This exercise uses blazegraph database to insert the graph data and execute the 
 5. If the command succeeds, you should see the endpoint of the blazegraph.
 
 6. Navigating to that link will provide a UI to access the local blazegraph database running on your desktop
+         
+## Setting up the initial data
+We will be using the blzegraph to insert our graph and query from it to answers some questions.
+         
+For this, we are using a simple graphical representation of data shown below: ![alt text](https://github.com/paachary/rdf-sparql/blob/main/RDF-Graph-Representation-Person-Example.jpg "attached jpeg file link")
+
+### Inserting the data
+Load the person-data-graph.ttl file into the blazegraph tool under the UPDATE menu. Choose file type as RDF and Turtle.
+
+### Querying the data
+You can try to answer the questions in person-data-graph.query using SPARQL under the QUERY menu of the tool. 
+
+### Verify your queries
+You can use the file solutions.query to refer to the answers to the questions.
+
