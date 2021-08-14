@@ -7,6 +7,11 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 ## IRI
 PREFIX : <http://persondata-graph.com/>
 
+<<<<<<< HEAD
+=======
+:Tim rdf:type :Manager .
+
+>>>>>>> 3a4a21a6f3800fa1a5a0f934650b14e148930ebd
 :Tim a :Manager ;
     a :Person ;
     :name "Timothy Dalton" ;
@@ -35,7 +40,11 @@ PREFIX : <http://persondata-graph.com/>
 
 :Goofy_The_Dog a :Animal ;
                  :name "Goofy" ;
+<<<<<<< HEAD
                  :born_on "2019-07-04"^^xsd:date .
+=======
+				 :born_on "2019-07-04"^^xsd:date .
+>>>>>>> 3a4a21a6f3800fa1a5a0f934650b14e148930ebd
 
 :Alex :likes :Goofy_The_Dog .
 				 
@@ -47,4 +56,8 @@ PREFIX : <http://persondata-graph.com/>
         :personality_trait "Hard-working", "Cat Lover" ;
 		:reports_to :Tim .
         
+<<<<<<< HEAD
 :Mike :friend_of :Sam .        
+=======
+:Mike :friend_of :Sam .        
+>>>>>>> 3a4a21a6f3800fa1a5a0f934650b14e148930ebd
