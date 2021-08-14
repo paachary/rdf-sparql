@@ -21,7 +21,7 @@ This exercise uses blazegraph database to insert the graph data and execute the 
 6. Navigating to that link will provide a UI to access the local blazegraph database running on your desktop
          
 ## Setting up the initial data
-We will be using the blzegraph to insert our graph and query from it to answers some questions.
+We will be using the blzegraph to insert our graph and query from it to answer some questions.
          
 For this, we are using a simple graphical representation of data shown below: ![alt text](https://github.com/paachary/rdf-sparql/blob/main/RDF-Graph-Representation-Person-Example.jpg "attached jpeg file link")
 
