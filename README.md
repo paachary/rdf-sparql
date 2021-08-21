@@ -62,6 +62,6 @@ Install Geaphviz library for the visulation to work on Jupyter.
    jupyter notebook
 ```
 
-Example can be viewed [here](https://nbviewer.jupyter.org/github/paachary/rdf-sparql/blob/main/jupyter-notebook-graph-example.ipynb).
+Example can be viewed through the [online Notebook viewer](https://nbviewer.jupyter.org/github/paachary/rdf-sparql/blob/main/jupyter-notebook-graph-example.ipynb).
 
          
