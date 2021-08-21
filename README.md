@@ -35,11 +35,26 @@ You can try to answer the questions in [person-data-graph.query](https://github.
 You can use the file [solutions.query](https://github.com/paachary/rdf-sparql/blob/main/solutions.query) to refer to the answers to the questions.
 
 ## Visualizing graph using Jupyter Notebook and Sparqlkernel
-More information can be found in [this repository](https://github.com/riccardotommasini/rsp-kernel)
 
-'''python
+### Install Jupyter Notebook and Sparqlkernel on your unix box
+Note: These commands have been run on Ubuntu 20.04 OS
+
+More information on Sparqlkernel can be found in [this repository](https://github.com/riccardotommasini/rsp-kernel)
+```python
        pip install sparqlkernel
        pip install notebook
        jupyter sparqlkernel install  
-'''
+```
+
+Install Geaphviz library for the visulation to work on Jupyter.
+```python
+   sudo apt install graphviz
+```
+
+### Open the jupyter notebook and run the Sparql kernel
+```python
+   jypter notebook
+```
+
+Example can be viewed here.
          
