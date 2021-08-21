@@ -59,7 +59,7 @@ Install Geaphviz library for the visulation to work on Jupyter.
 
 ### Open the jupyter notebook and run the Sparql kernel
 ```python
-   jypter notebook
+   jupyter notebook
 ```
 
 Example can be viewed [here](https://github.com/paachary/rdf-sparql/blob/main/jupyter-notebook-graph-example.ipynb).
