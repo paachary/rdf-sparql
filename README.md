@@ -52,7 +52,7 @@ More information on Sparqlkernel can be found in [this repository](https://githu
        jupyter sparqlkernel install  
 ```
 
-Install Geaphviz library for the visulation to work on Jupyter.
+Install Graphviz library for the visulation to work on Jupyter.
 ```python
    sudo apt install graphviz
 ```
