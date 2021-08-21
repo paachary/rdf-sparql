@@ -34,6 +34,12 @@ You can try to answer the questions in [person-data-graph.query](https://github.
 ### Verify your queries
 You can use the file [solutions.query](https://github.com/paachary/rdf-sparql/blob/main/solutions.query) to refer to the answers to the questions.
 
+## Getting the endpoint for blazegraph for further development
+RDF Sparql queries can be written programitcally in python, java and Jupyter notebook using the blazegraph endpoint:
+```python
+         endpoint:  http://localhost:9999/bigdata/sparql
+```
+
 ## Visualizing graph using Jupyter Notebook and Sparqlkernel
 
 ### Install Jupyter Notebook and Sparqlkernel on your unix box
@@ -56,5 +62,6 @@ Install Geaphviz library for the visulation to work on Jupyter.
    jypter notebook
 ```
 
-Example can be viewed here.
+Example can be viewed [here](https://github.com/paachary/rdf-sparql/blob/main/jupyter-notebook-graph-example.ipynb).
+
          
