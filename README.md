@@ -46,6 +46,7 @@ RDF Sparql queries can be written programitcally in python, java and Jupyter not
 Note: These commands have been run on Ubuntu 20.04 OS
 
 More information on Sparqlkernel can be found in [this repository](https://github.com/riccardotommasini/rsp-kernel)
+This assumes python3 is already installed on your machine.
 ```python
        pip install sparqlkernel
        pip install notebook
@@ -54,7 +55,11 @@ More information on Sparqlkernel can be found in [this repository](https://githu
 
 Install Graphviz library for the visulation to work on Jupyter.
 ```python
+   ## On Ubuntu:
    sudo apt install graphviz
+
+   ## On EC2 Linux:
+   sudo yum install graphviz
 ```
 
 ### Open the jupyter notebook and run the Sparql kernel
